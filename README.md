@@ -1,3 +1,54 @@
+
+<!-- ============================================================ -->
+<!-- FORK NOTES — openclaw_experiments                            -->
+<!-- ============================================================ -->
+
+## About this fork
+
+> **Repo:** `aditya.chaudhari/openclaw_experiments`  
+> **Base:** [`openclaw/openclaw`](https://github.com/openclaw/openclaw)
+
+### What's different here
+
+- deployed on the hosginger VPS instead of a local machine
+- optimized configurations for better token consumption.
+- key goal is to experiment with the capabilities of the OpenClaw assistant in a real-world setting, and to explore how it can be customized and extended for specific use cases.
+- Also to deep dive in architecture of the openClaw and create reference material on it for multi-agent use cases.
+
+### Setup for this fork
+
+**Target:** Hostinger VPS (Ubuntu 24.04 KVM 2) — no Docker registry, image piped over SSH.
+
+#### 1. One-time VPS setup
+```bash
+ssh root@YOUR_VPS_IP 'bash -s' < scripts/vps-setup.sh
+# Creates ~/openclaw/, ~/openclaw-data/{config,workspace}/, opens UFW port 18789, writes .env template
+```
+
+#### 2. Fill in secrets on the VPS
+```bash
+ssh root@YOUR_VPS_IP 'nano ~/openclaw/.env'   # add ANTHROPIC_API_KEY + other keys
+```
+
+#### 3. Deploy (build + pipe + restart)
+```bash
+VPS_HOST=root@YOUR_VPS_IP ./scripts/deploy-to-vps.sh
+# Builds linux/amd64 image locally, pipes it over SSH, syncs config/workspace, restarts gateway
+```
+
+#### 4. Local Docker quick-reference
+See [DOCKERSETUP.md](DOCKERSETUP.md) for local Docker workflow, useful CLI commands, and health checks.
+
+#### Key files
+| File | Purpose |
+|------|---------|
+| [DEPLOY.md](DEPLOY.md) | Full VPS deployment runbook |
+| [DOCKERSETUP.md](DOCKERSETUP.md) | Local Docker quick-start |
+| [scripts/deploy-to-vps.sh](scripts/deploy-to-vps.sh) | Build + SSH pipe + restart |
+| [scripts/vps-setup.sh](scripts/vps-setup.sh) | One-time VPS bootstrap |
+| [gateway-config/openclaw.vps.json](gateway-config/openclaw.vps.json) | VPS gateway config (no secrets) |
+
+
 # 🦞 OpenClaw — Personal AI Assistant
 
 <p align="center">
