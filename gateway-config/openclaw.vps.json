@@ -1,0 +1,78 @@
+{
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "anthropic/claude-haiku-4-5-20251001",
+        "fallbacks": ["openai/gpt-4o-mini"]
+      },
+      "imageModel": "anthropic/claude-sonnet-4-6",
+      "pdfModel": "anthropic/claude-sonnet-4-6",
+      "models": {
+        "anthropic/claude-haiku-4-5-20251001": {},
+        "anthropic/claude-sonnet-4-6": {},
+        "openai/gpt-4o-mini": {},
+        "anthropic/claude-3-5-sonnet-20240620": {}
+      },
+      "compaction": {
+        "model": "anthropic/claude-sonnet-4-6"
+      },
+      "workspace": "/home/node/.openclaw/workspace",
+      "bootstrapMaxChars": 8000,
+      "bootstrapTotalMaxChars": 30000,
+      "heartbeat": {
+        "every": "4h",
+        "model": "anthropic/claude-haiku-4-5-20251001",
+        "isolatedSession": true,
+        "lightContext": true,
+        "activeHours": {
+          "start": "08:00",
+          "end": "23:00"
+        }
+      }
+    }
+  },
+  "tools": {
+    "profile": "coding",
+    "web": {
+      "search": {
+        "provider": "tavily"
+      }
+    }
+  },
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto",
+    "restart": true,
+    "ownerDisplay": "raw"
+  },
+  "session": {
+    "dmScope": "per-channel-peer"
+  },
+  "gateway": {
+    "port": 18789,
+    "mode": "local",
+    "bind": "lan",
+    "controlUi": {
+      "dangerouslyAllowHostHeaderOriginFallback": true
+    },
+    "auth": {
+      "rateLimit": {
+        "maxAttempts": 10,
+        "windowMs": 60000,
+        "lockoutMs": 300000
+      },
+      "mode": "token"
+    },
+    "nodes": {
+      "denyCommands": [
+        "camera.snap",
+        "camera.clip",
+        "screen.record",
+        "contacts.add",
+        "calendar.add",
+        "reminders.add",
+        "sms.send"
+      ]
+    }
+  }
+}
