@@ -1,3 +1,54 @@
+# Personal Fork Context
+
+This is **Aditya's personal fork** of the upstream openclaw repo.
+
+## Fork Workflow
+
+1. Make changes locally in this fork.
+2. Test changes using Docker locally (see `DOCKERSETUP.md` for all commands).
+3. Once validated, push the Docker image / changes to the **Hostinger VPS**.
+
+## Key Docker Commands (quick reference)
+
+```sh
+# Build and start all services
+docker compose build && docker compose up -d
+
+# Restart just the gateway
+docker compose restart openclaw-gateway
+
+# Tail gateway logs
+docker logs -f enterprise_multi_agents_orchestrator-openclaw-gateway-1
+
+# Device management
+docker compose run --rm openclaw-cli devices list
+docker compose run --rm openclaw-cli devices approve <REQUEST_ID>
+
+# Shell into the gateway container
+docker exec -it enterprise_multi_agents_orchestrator-openclaw-gateway-1 bash
+```
+
+Local UI: `http://127.0.0.1:18789/chat?session=main`
+
+## Deployment Target
+
+- Production host: **Hostinger VPS**
+- Deploy by pushing the Docker image or pulling latest code on the VPS and rebuilding.
+- Do NOT apply upstream-claw release guardrails (version bumps, appcast, npm publish) to this fork — changes here are personal/experimental only.
+
+## Research & Answering Questions
+
+When answering questions about OpenClaw behavior, configuration, or features — especially if the local fork doesn't have the answer — follow this priority order:
+
+1. **Local fork code first**: read files in this repo (`src/`, `extensions/`, `docs/`) for the most accurate local state.
+2. **Upstream openclaw repo**: if the local fork doesn't have a clear answer, check the upstream source at `https://github.com/openclaw/openclaw`. Use `WebFetch` or `WebSearch` to read upstream source, issues, PRs, or discussions.
+3. **OpenClaw docs**: check `https://docs.openclaw.ai` for official documentation on features, config, and guides.
+4. **Online search**: use `WebSearch` to find relevant GitHub issues, changelogs, community posts, or third-party references when the above don't suffice.
+
+Apply this research flow proactively — don't guess or answer from memory alone when code or docs can be verified. Always cite the source (file path, URL, or doc page) when the answer comes from outside the local fork.
+
+---
+
 # Repository Guidelines
 
 - Repo: https://github.com/openclaw/openclaw
